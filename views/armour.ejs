@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="icon" href="/icon/runescape.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <a href="/">
+      <button class="btn btn-primary position-absolute top-0 start-0 m-2">
+        Home Page
+      </button>
+    </a>
+    <a href="/">
+      <button class="btn btn-primary position-absolute top-0 start-100 m-2">
+        Create Item
+      </button>
+    </a>
+    <%- include("partials/navigation") %>
+    <div class="container">
+      <div class="row">
+        <% rows.map((row, index) => { %>
+
+        <div class="col-3">
+          <div class="card mb-3" style="max-width: 300px">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <a href="/armour/<%= row.id %>">
+                  <img
+                    src="/<%= row.ref %>"
+                    class="img-fluid rounded-start pt-5"
+                    alt="<%= row.name %>"
+                  />
+                </a>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body text-center">
+                  <h5 class="card-title"><%= row.name %></h5>
+                  <p class="card-text my-0">
+                    <b>Price</b>: <%= row.price.toLocaleString() %> coins
+                  </p>
+                  <p class="card-text my-0"><b>Type</b>: <%= row.type %></p>
+                  <a href="/armour/<%= row.id  %>">
+                    <button class="btn-primary btn mt-2">View</button>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+
+    <a target="_blank" href="https://icons8.com/icon/38207/runescape"
+      >RuneScape</a
+    >
+    icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

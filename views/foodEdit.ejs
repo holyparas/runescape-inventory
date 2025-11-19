@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="icon" href="/icon/runescape.png" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <a href="/food">
+      <button class="btn btn-primary position-absolute top-0 start-0 m-2">
+        Back
+      </button>
+    </a>
+        <%- include("partials/navigation") %>
+
+
+    <div class="card mb-3 w-50 mx-auto" >
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img
+            src="/<%= row.ref %>"
+            class="img-fluid rounded-start pt-5"
+            alt="<%= row.name %>"
+          />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body text-center">
+            <form action="/food/edit/<%= row.id %>" method="post">
+              <input
+                type="text"
+                name="name"
+                value="<%= row.name %>"
+                class="form-control mb-2 fs-1"
+              />
+              <div class="form-control">
+                <label for="members">Members</label>
+                <input type="checkbox" name="members" id="members" value="true" <%= row.members ? "checked" : "" %>/>
+              </div>
+              <div>
+                <label for="heal">Heal: </label>
+                <input
+                  type="text"
+                  name="heal"
+                  id="heal"
+                  value="<%= row.heal %>"
+                  class="form-control"
+                />
+              </div>
+              <div>
+                <label for="price">Price: </label>
+                <input
+                  type="number"
+                  min="1"
+                  name="price"
+                  id="price"
+                  value="<%= row.price %>"
+                  class="form-control"
+                />
+              </div>
+              <div>
+                <label for="weight">Weight: </label>
+                <input
+                  type="number"
+                  step="0.01"
+                  name="weight"
+                  id="weight"
+                  value="<%= row.weight %>"
+                  class="form-control"
+                />
+              </div>
+             
+              <button class="btn btn-primary" type="submit">Confirm Edit</button>
+              <button class="btn btn-danger">Cancel</button>
+
+            </form>
+          
+        </div>
+      </div>
+    </div>
+
+    <a target="_blank" href="https://icons8.com/icon/38207/runescape"
+      >RuneScape</a
+    >
+    icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
