@@ -7,26 +7,37 @@ const potionDB = require("../db/potionQueries");
 const multer = require("multer");
 const path = require("path");
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
+const supabase = require("../supabase/imagestorage");
 
-const upload = multer({ storage: storage });
+async function uploadToSupabase(file) {
+  const fileName = `${Date.now()}-${file.originalname}`;
+
+  const { error } = await supabase.storage
+    .from("item-images")
+    .upload(fileName, file.buffer, {
+      contentType: file.mimetype,
+    });
+
+  if (error) throw error;
+
+  const { data } = supabase.storage.from("item-images").getPublicUrl(fileName);
+
+  return data.publicUrl;
+}
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 const indexRouter = Router();
 
 indexRouter.post("/items/create", upload.single("image"), async (req, res) => {
   const { name, category } = req.body;
 
-  const imagePath = req.file ? "uploads/" + req.file.filename : null;
   let params = null;
 
-  const ref = imagePath;
+  let ref = null;
+  if (req.file) {
+    ref = await uploadToSupabase(req.file);
+  }
 
   let members = req.body.wepMem ? true : false;
 
