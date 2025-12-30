@@ -35,7 +35,7 @@
               <div class="col-md-4">
                 <a href="/potions/<%= row.id %>">
                   <img
-                    src="/<%= row.ref %>"
+                    src="<%= row.ref.startsWith('http') ? row.ref : '/' + row.ref %>"
                     class="img-fluid rounded-start pt-5"
                     alt="<%= row.name %>"
                   />

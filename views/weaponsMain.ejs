@@ -24,7 +24,7 @@
       <div class="row g-0">
         <div class="col-md-4">
           <img
-            src="/<%= row.ref %>"
+            src="<%= row.ref.startsWith('http') ? row.ref : '/' + row.ref %>"
             class="img-fluid rounded-start pt-5"
             alt="<%= row.name %>"
           />

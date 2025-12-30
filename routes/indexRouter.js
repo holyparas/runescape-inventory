@@ -13,14 +13,19 @@ async function uploadToSupabase(file) {
   const fileName = `${Date.now()}-${file.originalname}`;
 
   const { error } = await supabase.storage
-    .from("item-images")
+    .from("runescape-items")
     .upload(fileName, file.buffer, {
       contentType: file.mimetype,
     });
 
-  if (error) throw error;
+  if (error) {
+    console.error(error);
+    throw error;
+  }
 
-  const { data } = supabase.storage.from("item-images").getPublicUrl(fileName);
+  const { data } = supabase.storage
+    .from("runescape-items")
+    .getPublicUrl(fileName);
 
   return data.publicUrl;
 }
@@ -96,8 +101,6 @@ indexRouter.post("/items/create", upload.single("image"), async (req, res) => {
       res.redirect("/food");
       break;
   }
-
-  console.log("Image saved at:", imagePath);
 
   // save to database...
   // name, category, imagePath
